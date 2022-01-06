@@ -10,7 +10,7 @@ services:
       GCPE_INTERNAL_MONITORING_LISTENER_ADDRESS: tcp://127.0.0.1:8082
     volumes:
       - type: bind
-        source: /Users/ivanrezv/PhpstormProjects/Gitlab-ci/cd-exporter/grafana-observability/gitlab-ci-pipelines-exporter.yml
+        source: ./gitlab-ci-pipelines-exporter.yml
         target: /etc/gitlab-ci-pipelines-exporter.yml
 
   prometheus:
