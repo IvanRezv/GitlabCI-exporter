@@ -1,0 +1,45 @@
+---
+version: '3.8'
+services:
+  gitlab-ci-pipelines-exporter:
+    image: docker.io/mvisonneau/gitlab-ci-pipelines-exporter:v0.5.2
+    ports:
+      - 8080:8080
+    environment:
+      GCPE_CONFIG: /etc/gitlab-ci-pipelines-exporter.yml
+      GCPE_INTERNAL_MONITORING_LISTENER_ADDRESS: tcp://127.0.0.1:8082
+    volumes:
+      - type: bind
+        source: /Users/ivanrezv/PhpstormProjects/Gitlab-ci/cd-exporter/grafana-observability/gitlab-ci-pipelines-exporter.yml
+        target: /etc/gitlab-ci-pipelines-exporter.yml
+
+  prometheus:
+    image: docker.io/prom/prometheus:v2.28.1
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    restart: always
+    links:
+      - gitlab-ci-pipelines-exporter
+    volumes:
+      - ./prometheus/config.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: docker.io/grafana/grafana:8.0.5
+    container_name: grafana
+    ports:
+      - 3000:3000
+    restart: always
+    environment:
+      GF_INSTALL_PLUGINS: grafana-polystat-panel,yesoreyeram-boomtable-panel
+    links:
+      - prometheus
+    volumes:
+      - ./grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/default.yml
+      - ./grafana/datasources.yml:/etc/grafana/provisioning/datasources/default.yml
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+
+
+networks:
+  default:
+    driver: bridge

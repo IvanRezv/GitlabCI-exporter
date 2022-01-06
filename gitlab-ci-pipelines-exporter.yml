@@ -1,0 +1,7 @@
+gitlab:
+  url: https://gitlab.example.com
+  # You can also configure the token using --gitlab-token
+  # or the $GCPE_GITLAB_TOKEN environment variable
+  token: ${your_token}
+projects:
+  - name: test/exporter
