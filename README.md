@@ -23,6 +23,7 @@ git clone $REPOSITORY
  
 ### Использование
 `Grafana` - адрес машины\URL:3000
+
 `Prometheus` - адрес машины\URL:9090
 
 Пароль и логин по умолчанию для grafana - `admin`. После первой авторизации будет предложено сменить его.
@@ -39,5 +40,5 @@ git clone $REPOSITORY
 
 [Syntax]:<https://github.com/mvisonneau/gitlab-ci-pipelines-exporter/blob/main/docs/configuration_syntax.md>
 [официального источника]:<https://github.com/mvisonneau/gitlab-ci-pipelines-exporter>
-[Docker]:<https://docs.docker.com/compose/install/>
+[Docker]:<https://docs.docker.com/engine/install/>
 [Docker-compose]:<https://docs.docker.com/compose/install/>
